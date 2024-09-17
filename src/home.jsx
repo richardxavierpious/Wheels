@@ -5,11 +5,11 @@ import Header from './components/ui/Header'
 
 function Home() {
   return (
-    <div>
+    <>
         {/* Header */}
         <Header/>
         {/* Hero */}
-    </div>
+    </>
   )
 }
 
