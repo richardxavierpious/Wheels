@@ -27,7 +27,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: fill;
   place-items: start;
   min-width: 320px;
   min-height: 100vh;
@@ -45,7 +45,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: grey;
+  background-color: primary;
   cursor: pointer;
   transition: border-color 0.25s;
 }
