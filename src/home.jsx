@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button } from './components/ui/button'
-import { SignInButton } from '@clerk/clerk-react'
-import Header from './components/ui/Header'
-import Hero from './components/ui/Hero'
+import Header from './components/Header'
+import Hero from './components/Hero'
+import Category from './components/Category'
+import MostSearchedCars from './components/MostSearchedCars'
+import InfoSection from './components/InfoSection'
+import Footer from './components/Footer'
 
 function Home() {
   return (
@@ -11,6 +13,14 @@ function Home() {
         <Header/>
         {/* Hero */}
         <Hero/>
+        {/* Category */}
+        <Category/>
+        {/* MostSerchedCars*/}
+        <MostSearchedCars/>
+        {/* InfoSection */}
+        <InfoSection/>
+        {/* Footer */}
+        <Footer/>
     </>
   )
 }

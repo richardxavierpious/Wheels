@@ -6,7 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-import { Separator } from './separator'
+import { Separator } from './ui/separator'
 import { CiSearch } from "react-icons/ci";
 import searchdropdowndata from '@/Shared/searchdropdowndata';
   

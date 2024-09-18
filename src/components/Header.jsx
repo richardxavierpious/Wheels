@@ -1,6 +1,6 @@
 import { SignInButton, UserButton, useUser } from '@clerk/clerk-react'
 import React from 'react'
-import { Button } from './button';
+import { Button } from './ui/button';
 
 function Header() {
   const {user, isSignedIn} = useUser();
@@ -19,11 +19,11 @@ function Header() {
         {isSignedIn?
           <div className='flex items-center gap-5'>
             <UserButton/>
-            <Button>Submit Listing</Button>
+            <Button>  Submit Listing</Button>
           </div>
           :
           <div className='flex items-center gap-2'>
-            <SignInButton mode="modal" forceRedirectUrl='/' className="shadow-sm"/>
+            <SignInButton mode="modal" RedirectUrl='/' className="shadow-sm"/>
             <Button>Submit Listing</Button>
           </div>
         }
