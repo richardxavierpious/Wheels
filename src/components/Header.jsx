@@ -1,6 +1,7 @@
 import { SignInButton, UserButton, useUser } from '@clerk/clerk-react'
 import React from 'react'
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const {user, isSignedIn} = useUser();
@@ -10,16 +11,21 @@ function Header() {
         <img src='/logo.png' width={100} height={75}/>
       
         <ul className='hidden md:flex gap-16'>
-          <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Home</li>
-          <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Search</li>
-          <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>About</li>
-          <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Contact</li>
+          <Link to={'/'}>
+          <li className='font-medium text-black hover:scale-105 transition-all cursor-pointer hover:text-primary'>Home</li>
+          </Link>
+          <li className='font-medium text-black hover:scale-105 transition-all cursor-pointer hover:text-primary'>Search</li>
+          <li className='font-medium text-black hover:scale-105 transition-all cursor-pointer hover:text-primary'>About</li>
+          <li className='font-medium text-black hover:scale-105 transition-all cursor-pointer hover:text-primary'>Contact</li>
         </ul>
     
         {isSignedIn?
           <div className='flex items-center gap-5'>
             <UserButton/>
-            <Button>  Submit Listing</Button>
+            <Link to={'/profile'}>
+            <Button>Submit Listing</Button>
+            </Link>
+           
           </div>
           :
           <div className='flex items-center gap-2'>
