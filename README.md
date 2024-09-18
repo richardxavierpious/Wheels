@@ -14,6 +14,8 @@ React Icons - https://react-icons.github.io/react-icons/
 
 Shadcn UI - https://ui.shadcn.com/
 
+Vite - https://vitejs.dev/
+
 
 ## Setup
 To run this project, clone this repository 
