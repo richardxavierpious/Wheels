@@ -1,4 +1,5 @@
- ![logo](https://github.com/user-attachments/assets/61931793-349d-4cfb-a0ea-4fa14a609456)
+![logo](https://github.com/user-attachments/assets/c51f58fc-964a-4bad-96e3-f980f88ccbae)
+
 
 ## Overview
 This project is an online car marketplace where once can fulfill all their needs when it comes to finding their dream car. It is currently WIP
