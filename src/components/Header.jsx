@@ -31,8 +31,8 @@ function Header() {
           </div>
           :
           <div className='flex items-center gap-2'>
-            <SignInButton mode="modal" RedirectUrl='/' className="shadow-sm"/>
-            <Button>Submit Listing</Button>
+            <SignInButton mode="modal" RedirectUrl='/' className="shadow-sm"/> 
+            <SignInButton mode="modal" RedirectUrl='/profile' className="shadow-sm">Submit Listing </SignInButton>
           </div>
         }
     </div>

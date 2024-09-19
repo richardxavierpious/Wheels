@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { db } from './../../configs'
 import { CarListing } from './../../configs/schema'
 import IconField from './components/IconField'
+import UploadImages from './components/UploadImages'
 
 
 
@@ -19,7 +20,7 @@ function AddListing() {
 
     const [formData, setFormData] = useState({});
     const [featuresData, setfeaturesData] = useState({});
-
+    const [triggerUploadImages, setTriggerUploadImages] = useState();
 
     const handleInputChange = (name, value)=>{
         setFormData((prevData)=>({
@@ -49,16 +50,20 @@ function AddListing() {
             const result = await db.insert(CarListing).values({
                 ...formData,
                 features: featuresData
-            });
+            }).returning({id:CarListing.id});
         
             if(result){
                 console.log("Data Saved")
+                setTriggerUploadImages(result[0]?.id);
+                console.log(result[0]?.id);
 
             }
         }catch(e){
             console.log("Error", e)
         }
     }
+
+   
 
   return (
     <div>
@@ -106,13 +111,16 @@ function AddListing() {
                         ))}
                     </div>
                 </div>
+                    
+                <Separator className='mt-8'/>
 
                 {/* Images */}
-
+                <UploadImages triggerUploadImages={triggerUploadImages}/>
 
                 <div className='mt-10 flex justify-end'>
                     <Button onClick={(e)=>onSubmit(e)}>Submit</Button>
                 </div>
+
             </form>
 
         </div>
