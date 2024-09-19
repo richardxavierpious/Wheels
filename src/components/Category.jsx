@@ -3,7 +3,7 @@ import React from 'react'
 
 function Category() {
   return (
-    <div className='mt-96'>
+    <div className='mt-48'>
         <h2 className='font-bold text-3xl text-center mb-10'> Browse by type </h2>
 
         <div className=' grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 px-20 '>
