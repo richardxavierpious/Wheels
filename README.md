@@ -4,6 +4,8 @@
 ## Overview
 This project is an online car marketplace where once can fulfill all their needs when it comes to finding their dream car. It is currently WIP
 
+Demo - https://wheels-marketplace.vercel.app/
+
 ## Resources
 
 Clerk - https://clerk.com/
