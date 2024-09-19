@@ -13,6 +13,11 @@ import { db } from './../../configs'
 import { CarListing } from './../../configs/schema'
 import IconField from './components/IconField'
 import UploadImages from './components/UploadImages'
+import { BiLoaderAlt } from "react-icons/bi"
+import { toast, Toaster } from 'sonner'
+import { useNavigate } from 'react-router-dom'
+import { useUser } from '@clerk/clerk-react'
+import moment from 'moments'
 
 
 
@@ -20,7 +25,10 @@ function AddListing() {
 
     const [formData, setFormData] = useState({});
     const [featuresData, setfeaturesData] = useState({});
-    const [triggerUploadImages, setTriggerUploadImages] = useState();
+    const [triggerUploadImages, setTriggerUploadImages] = useState(null);
+    const [loader, setLoader] = useState(false);
+    const navigate = useNavigate();
+    const {user} = useUser();
 
     const handleInputChange = (name, value)=>{
         setFormData((prevData)=>({
@@ -43,19 +51,24 @@ function AddListing() {
 
 
     const onSubmit=async (e)=>{
+        setLoader(true);
         e.preventDefault();
         console.log(formData)
+        toast('Please Wait..')
 
         try{
             const result = await db.insert(CarListing).values({
                 ...formData,
-                features: featuresData
+                features: featuresData,
+                createdBy: user?.primaryEmailAddress?.emailAddress,
+                postedOn: moment().format('DD/MM/YYYY')
+
             }).returning({id:CarListing.id});
         
             if(result){
                 console.log("Data Saved")
                 setTriggerUploadImages(result[0]?.id);
-                console.log(result[0]?.id);
+                setLoader(false);
 
             }
         }catch(e){
@@ -115,10 +128,16 @@ function AddListing() {
                 <Separator className='mt-8'/>
 
                 {/* Images */}
-                <UploadImages triggerUploadImages={triggerUploadImages}/>
+                <UploadImages triggerUploadImages={triggerUploadImages}
+                setLoader={(v)=>{setLoader(v); navigate('/profile') }}
+                />
 
                 <div className='mt-10 flex justify-end'>
-                    <Button onClick={(e)=>onSubmit(e)}>Submit</Button>
+                    <Button type="button" 
+                    disabled={loader}
+                    onClick={(e)=>onSubmit(e)}>
+                        {!loader?'Submit':<BiLoaderAlt className='animate-spin text-lg'/>}
+                    </Button>
                 </div>
 
             </form>

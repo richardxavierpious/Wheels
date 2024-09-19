@@ -1,9 +1,11 @@
-import { storage } from './../../../configs/firebaseconfig';
+import { storage } from '../../../configs/firebaseconfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react'
 import { IoIosCloseCircle } from "react-icons/io";
+import { CarImages } from './../../../configs/schema';
+import { db } from './../../../configs';
 
-function UploadImages(triggerUploadImages) {
+function UploadImages({triggerUploadImages, setLoader}) {
 
     const [selectedFileList, setSelectedFileList] = useState([]);
 
@@ -31,6 +33,7 @@ function UploadImages(triggerUploadImages) {
     }
 
     const UploadImageToServer=async()=>{
+        setLoader(true);
         selectedFileList.forEach((file)=>{
             const fileName = Date.now()+'.jpeg';
             const storageRef = ref(storage, 'wheels-marketplace/'+fileName);
@@ -42,8 +45,15 @@ function UploadImages(triggerUploadImages) {
             }).then(resp=>{
                 getDownloadURL(storageRef).then(async(downloadUrl)=>{
                     console.log(downloadUrl);
+
+                    await db.insert(CarImages).values({
+                        imageUrl: downloadUrl,
+                        CarListingId: triggerUploadImages
+                    }) 
                 })
             })
+        setLoader(false);
+
         })
     }
 
