@@ -1,5 +1,4 @@
-import fakedata from '@/Shared/fakedata'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CarItem from './CarItem';
 import {
     Carousel,
@@ -8,10 +7,30 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
+import { CarImages, CarListing } from './../../configs/schema';
+import { desc, eq } from 'drizzle-orm';
+import { db } from './../../configs';
+import Service from '@/Shared/Service';
   
 
 function MostSearchedCars() {
-    console.log(fakedata.carList);
+
+  const [carList, setCarList] = useState([]);
+
+  useEffect(()=>{
+    GetPopularCatList();
+  }, [])
+
+    const GetPopularCatList=async ()=>{
+      const result = await db.select().from(CarListing)
+      .leftJoin(CarImages, eq(CarListing.id, CarImages.CarListingId))
+      .orderBy(desc(CarListing.id))
+      .limit(6)
+
+      const resp = Service.FormatResult(result)
+      setCarList(resp);
+    };
+
   return (
     <div className='mx-24'>
         <h2 className='font-bold text-3xl text-center mb-7 mt-10'> Most searched cars </h2>
@@ -19,9 +38,9 @@ function MostSearchedCars() {
         <Carousel>
         <CarouselContent>
 
-           {fakedata.carList.map((car, index)=>(
+           {carList.map((car, index)=>(
 
-             <CarouselItem className="basis-1/2 md:basis-1/4">
+             <CarouselItem key={index} className="basis-1/2 md:basis-1/4">
                  <CarItem car= {car}/> 
               </CarouselItem>
 

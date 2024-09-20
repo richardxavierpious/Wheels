@@ -11,12 +11,12 @@ function CarItem({car}) {
 
         <h2 className='absolute m-2 bg-green-500 px-2 rounded-full text-sm pb-0.5 text-white'>New</h2>
 
-        <img src={car?.image} width={'100%'} height={'100%'}
-        className='rounded-t-xl'/>
+        <img src={car?.images[0]?.imageUrl} width={'100%'} height={'100%'}
+        className='rounded-t-xl h-[180px] object-cover'/>
 
         <div className='p-6'>
 
-            <h2 className='font-bold text-black text-lg mb-2'>{car?.name}</h2>
+            <h2 className='font-bold text-black text-lg mb-2'>{car?.listingTitle}</h2>
 
             <Separator />
 
@@ -29,12 +29,12 @@ function CarItem({car}) {
 
                 <div className='flex flex-col items-center mb-2'>
                 <SlSpeedometer className='text-lg'/>
-                <h2>{car.miles}</h2>
+                <h2>{car.mileage}</h2>
                 </div>
 
                 <div className='flex flex-col items-center mb-2'>
                 <GiGearStickPattern className='text-lg'/>
-                <h2>{car.geartype}</h2>
+                <h2>{car.transmission}</h2>
                 </div>
 
             </div>
@@ -43,7 +43,7 @@ function CarItem({car}) {
 
             <div className='flex items-center justify-between'>
 
-                <h2 className='font-bold text-lg'>{car.price} Lakhs</h2>
+                <h2 className='font-bold text-lg'>Rs. {car.sellingPrice}</h2>
                 <h2 className='text-sky-800 text-sm flex items-center'>View Details <IoMdOpen/></h2>
 
             </div>

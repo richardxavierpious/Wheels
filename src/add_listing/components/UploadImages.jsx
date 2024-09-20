@@ -1,13 +1,27 @@
-import { storage } from './../../../configs/firebaseconfig.js';
+import { storage } from './../../../configs/firebaseconfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react'
 import { IoIosCloseCircle } from "react-icons/io";
 import { CarImages } from './../../../configs/schema';
 import { db } from './../../../configs';
+import { eq } from 'drizzle-orm';
 
-function UploadImages({triggerUploadImages, setLoader}) {
+function UploadImages({triggerUploadImages, setLoader, carInfo, mode}) {
 
     const [selectedFileList, setSelectedFileList] = useState([]);
+    const [EditCarImageList, setEditCarImageList] = useState([]);
+
+    useEffect(()=>{
+        if(mode=='edit'){
+            setEditCarImageList([])
+            console.log('check');
+            carInfo.images?.forEach((image)=>{
+                console.log('check2');
+                setEditCarImageList(prev=>[...prev, image?.imageUrl])
+
+            })
+        }
+    }, [carInfo])
 
     useEffect(()=>{
         if(triggerUploadImages)
@@ -30,6 +44,13 @@ function UploadImages({triggerUploadImages, setLoader}) {
     const onImageRemove = (image, index)=>{
         const result = selectedFileList.filter((item)=>item!=image);
         setSelectedFileList(result);
+    }
+
+    const onImageRemovefromDB = async (image, index)=>{
+        const result = await db.delete(CarImages).where(eq(CarImages.id, carInfo?.images[index]?.id)).returning({id:CarImages.id});
+
+        const imageList = EditCarImageList.filter(item=>item!=image);
+        setEditCarImageList(imageList);
     }
 
     const UploadImageToServer=async()=>{
@@ -62,7 +83,19 @@ function UploadImages({triggerUploadImages, setLoader}) {
     <div>
 
         <h2 className='font-medium text-xl my-5'>Upload Car Images</h2>
+        <h2 className='font-medium text-sm my-5'>Do not remove all images!</h2>
         <div className='grid grid-cols2 md:grid-cols-4 lg:grid-cols-6 gap-5'>
+
+            {mode=='edit'&&
+            EditCarImageList.map((image, index)=>(
+            
+                <div key={index}>
+                    <IoIosCloseCircle className='absolute m-2 h-7 text-lg text-red-600'
+                    onClick={()=>onImageRemovefromDB(image, index)}/>
+                        <img src = {image} className='w-full h-[127px] object-cover rounded-xl' />
+                    </div>                
+            ))}
+
             {selectedFileList.map((image, index)=>(
                 
                 <div key={index}>

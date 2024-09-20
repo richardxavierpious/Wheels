@@ -20,7 +20,7 @@ function Search() {
             </SelectTrigger>
             <SelectContent className="bg-white">
                 {searchdropdowndata.Ownership.map((ob, index)=>(
-                <SelectItem value={ob.name}>{ob.name}</SelectItem>
+                <SelectItem key={index} value={ob.name}>{ob.name}</SelectItem>
                 ))}
             </SelectContent>
         </Select>
@@ -33,7 +33,7 @@ function Search() {
             </SelectTrigger>
             <SelectContent className="bg-white">
             {searchdropdowndata.Manufacturers.map((ob, index)=>(
-                <SelectItem value={ob.name}>{ob.name}</SelectItem>
+                <SelectItem key={index} value={ob.name}>{ob.name}</SelectItem>
                 ))}
             </SelectContent>
         </Select>
@@ -46,7 +46,7 @@ function Search() {
             </SelectTrigger>
             <SelectContent className="bg-white">
             {searchdropdowndata.Pricing.map((ob, index)=>(
-                <SelectItem value={ob.name}>{ob.name}</SelectItem>
+                <SelectItem key={index} value={ob.name}>{ob.name}</SelectItem>
                 ))}
             </SelectContent>
         </Select>

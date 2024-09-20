@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import carDetails from './../Shared/carDetails.json'
 import InputField from './components/InputField'
 import DropdownField from './components/DropdownField'
@@ -10,14 +10,16 @@ import features from './../Shared/features.json'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { db } from './../../configs'
-import { CarListing } from './../../configs/schema'
+import { CarImages, CarListing } from './../../configs/schema'
 import IconField from './components/IconField'
 import UploadImages from './components/UploadImages'
 import { BiLoaderAlt } from "react-icons/bi"
 import { toast, Toaster } from 'sonner'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react'
 import moment from 'moment'
+import { eq } from 'drizzle-orm'
+import Service from '@/Shared/Service'
 
 
 
@@ -26,9 +28,36 @@ function AddListing() {
     const [formData, setFormData] = useState({});
     const [featuresData, setfeaturesData] = useState({});
     const [triggerUploadImages, setTriggerUploadImages] = useState(null);
+    const [searchParams] = useSearchParams();
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
     const {user} = useUser();
+    const [carInfo, setCarInfo] = useState([]);
+
+    const mode = searchParams.get('mode');
+    const recordId = searchParams.get('id');
+
+    useEffect(()=>{
+        if(mode=='edit')
+        {
+            GetListingDetail();
+        }
+    }, []);
+
+
+    const GetListingDetail = async ()=>{
+        const result=await db.select().from(CarListing)
+        .innerJoin(CarImages, eq(CarListing?.id, CarImages?.CarListingId))
+        .where(eq(CarListing.id, recordId))
+        
+        const resp = Service.FormatResult(result)
+        setCarInfo(resp[0])
+        setFormData(resp[0])
+        setfeaturesData(resp[0]?.features)
+    }
+
+
+
 
     const handleInputChange = (name, value)=>{
         setFormData((prevData)=>({
@@ -56,6 +85,17 @@ function AddListing() {
         console.log(formData)
         toast('Please Wait..')
 
+        if(mode=='edit'){
+            const result=await db.update(CarListing).set({
+                ...formData,
+                features: featuresData,
+                createdBy: user?.primaryEmailAddress?.emailAddress,
+                postedOn: moment().format('DD/MM/YYYY') 
+            }).where(eq(CarListing.id, recordId)).returning({id: CarListing.id})
+            navigate('/profile')    
+            setLoader(false);
+        }
+        else{
         try{
             const result = await db.insert(CarListing).values({
                 ...formData,
@@ -73,7 +113,7 @@ function AddListing() {
             }
         }catch(e){
             console.log("Error", e)
-        }
+        }}
     }
 
    
@@ -99,11 +139,11 @@ function AddListing() {
                                     {item?.label} {item.required&&<span className='text-red-700'>*</span>} 
                                 </label>
                                 {item.fieldType=='text'||item.fieldType=='number'
-                                ?<InputField item={item} handleInputChange={handleInputChange} />
+                                ?<InputField item={item} handleInputChange={handleInputChange} carInfo={carInfo}/>
                                 :item.fieldType=="dropdown"
-                                ?<DropdownField item={item} handleInputChange={handleInputChange}/>
+                                ?<DropdownField item={item} handleInputChange={handleInputChange} carInfo={carInfo}/>
                                 :item.fieldType=="textarea"
-                                ?<TextArea item={item} handleInputChange={handleInputChange}/>
+                                ?<TextArea item={item} handleInputChange={handleInputChange} carInfo={carInfo}/>
                                 :null}
                             </div>   
                         ))}
@@ -118,7 +158,8 @@ function AddListing() {
                     <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                         {features.features.map((item, index)=>(
                             <div key={index} className='flex gap-2 items-center'>
-                                <Checkbox onCheckedChange={(value)=>handleFeatureChange(item.name, value)} /> 
+                                <Checkbox onCheckedChange={(value)=>handleFeatureChange(item.name, value)}
+                                    checked={featuresData?.[item.name]}/> 
                                     <h2 className='text-sm'>{item.label}</h2>
                             </div>
                         ))}
@@ -129,6 +170,8 @@ function AddListing() {
 
                 {/* Images */}
                 <UploadImages triggerUploadImages={triggerUploadImages}
+                carInfo={carInfo}
+                mode={mode}
                 setLoader={(v)=>{setLoader(v); navigate('/profile') }}
                 />
 
