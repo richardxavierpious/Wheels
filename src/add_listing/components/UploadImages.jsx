@@ -1,4 +1,4 @@
-import { storage } from './../../../configs/firebaseconfig';
+import { storage } from './../../../configs/firebaseconfig.js';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react'
 import { IoIosCloseCircle } from "react-icons/io";

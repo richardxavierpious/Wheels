@@ -17,7 +17,7 @@ import { BiLoaderAlt } from "react-icons/bi"
 import { toast, Toaster } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react'
-import moment from 'moments'
+import moment from 'moment'
 
 
 
