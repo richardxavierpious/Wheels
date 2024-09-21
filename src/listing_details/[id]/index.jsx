@@ -61,7 +61,7 @@ function ListingDetail() {
                     <Pricing sellingPrice={carDetails?.sellingPrice}/>
 
                     {/* Car Specifications */}
-                    <Specifications/>
+                    <Specifications carDetails={carDetails}/>
                     {/* Owner Details */}
                 </div>
 
