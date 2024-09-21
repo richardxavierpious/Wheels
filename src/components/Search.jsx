@@ -9,17 +9,18 @@ import {
 import { Separator } from './ui/separator'
 import { CiSearch } from "react-icons/ci";
 import searchdropdowndata from '@/Shared/searchdropdowndata';
+import { Link } from 'react-router-dom';
   
 function Search() {
 
-    const [cars, setCars] = useState([]);
-    const [make, setMake] = useState([]);
-    const [price, setPrice] = useState([]);
+    const [cars, setCars] = useState(null);
+    const [make, setMake] = useState(null);
+    const [price, setPrice] = useState(null);
 
   return (
     <div className='p-2 bg-white rounded-md md:rounded-full flex-col md:flex md:flex-row gap-10 px-5 
     items-center w-[60%]'>
-        <Select>
+        <Select onValueChange={(value)=>setCars(value)}>
             <SelectTrigger className="outline-none border-none w-full shadow-none text-md">
                 <SelectValue placeholder="Ownership" />
             </SelectTrigger>
@@ -32,7 +33,7 @@ function Search() {
        
         <Separator orientation="vertical" className="hidden md:block"/>
 
-        <Select>
+        <Select onValueChange={(value)=>setMake(value)}>
             <SelectTrigger className="outline-none border-none w-full shadow-none text-md">
                 <SelectValue placeholder="Manufacturer" />
             </SelectTrigger>
@@ -45,7 +46,7 @@ function Search() {
 
         <Separator orientation="vertical" className="hidden md:block"/>
 
-        <Select>
+        <Select onValueChange={(value)=>setPrice(value)}>
             <SelectTrigger className="outline-none border-none w-full shadow-none text-md">
                 <SelectValue placeholder="Pricing" />
             </SelectTrigger>
@@ -55,10 +56,10 @@ function Search() {
                 ))}
             </SelectContent>
         </Select>
-        <div>
+        <Link to={'/search?cars='+cars+'&make='+make+'&price='+price}>
             <CiSearch className='text-[42px] text-white bg-[#515fbb] rounded-full p-3 hover:scale-105 transition-all
             cursor-pointer'/>
-        </div>
+        </Link>
     </div>
   )
 }
