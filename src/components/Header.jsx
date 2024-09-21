@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 function Header() {
   const {user, isSignedIn} = useUser();
   return (
-    <div className='flex justify-between items-center shadow-sm p-3'>
+    <div className='flex justify-between items-center shadow-md p-3'>
         
         <Link to={'/'}>
-        <img src='/logo.png' width={125} height={75} className='rounded-full'/>
+        <img src='/logo.png' width={140} height={75} className='rounded-full'/>
         </Link>
 
         <ul className='hidden md:flex gap-16'>

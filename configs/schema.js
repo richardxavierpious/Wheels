@@ -26,8 +26,8 @@ export const CarListing = pgTable('carListing', {
     features: json('features'),
     createdBy: varchar('createdBy').notNull(),
     postedOn: varchar('postedOn'),
-    userName: varchar('userName').notNull().default('Richard Xavier'),
-    userImageUrl: varchar('userImageUrl').default('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeXnUu_eS6e6ldeZDvLbp3E7KuLA_enyu7r43-LGXcNwN4efdif4TLxIVOkAdZN846KUI&usqp=CAU')
+    userName: varchar('userName').notNull(),
+    userImageUrl: varchar('userImageUrl').default('https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg')
 
 })
 
