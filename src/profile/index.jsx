@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import React from 'react'
 import MyListings from './components/MyListings'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Inbox from './components/Inbox'
 
 
 function Profile() {
@@ -24,7 +25,8 @@ function Profile() {
               <MyListings/>
             </TabsContent>
 
-            <TabsContent value="inbox">Inbox
+            <TabsContent value="inbox">
+              <Inbox/>
 
             </TabsContent>
 
