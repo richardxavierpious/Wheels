@@ -7,7 +7,8 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import Profile from './profile'
 import AddListing from './add_listing'
 import { Toaster } from './components/ui/sonner'
-import SearchByCategory from './search'
+import SearchByCategory from './search/[category]'
+import SearchByOptions from './search'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/search/:category',
     element:<SearchByCategory/>
+  },
+  {
+    path: '/search',
+    element:<SearchByOptions/>
   }
 
 ])

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -11,6 +11,11 @@ import { CiSearch } from "react-icons/ci";
 import searchdropdowndata from '@/Shared/searchdropdowndata';
   
 function Search() {
+
+    const [cars, setCars] = useState([]);
+    const [make, setMake] = useState([]);
+    const [price, setPrice] = useState([]);
+
   return (
     <div className='p-2 bg-white rounded-md md:rounded-full flex-col md:flex md:flex-row gap-10 px-5 
     items-center w-[60%]'>
