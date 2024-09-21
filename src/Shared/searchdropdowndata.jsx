@@ -53,6 +53,10 @@ const Manufacturers = [
     },
     {
         id:14,
+        name: 'Toyota'
+    },
+    {
+        id:15,
         name: 'Volkswagen'
     }
 ]
@@ -64,7 +68,7 @@ const Pricing = [
     },
     {
         id: 2,
-        name: "10 -20L "
+        name: "10 to 20L "
     },
     {
         id: 3,

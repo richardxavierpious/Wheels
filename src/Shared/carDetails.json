@@ -79,15 +79,9 @@
         "Jaguar",
         "Porsche",
         "Fiat",
-        "Alfa Romeo",
         "Mitsubishi",
         "Infiniti",
-        "Acura",
-        "Mini",
-        "Buick",
-        "Cadillac",
-        "Chrysler",
-        "Lincoln"
+        "Mini"
       ],
       "column": 1,
       "icon": "FaIndustry"

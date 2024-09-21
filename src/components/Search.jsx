@@ -13,14 +13,14 @@ import { Link } from 'react-router-dom';
   
 function Search() {
 
-    const [cars, setCars] = useState(null);
+    const [condition, setCondition] = useState(null);
     const [make, setMake] = useState(null);
     const [price, setPrice] = useState(null);
 
   return (
     <div className='p-2 bg-white rounded-md md:rounded-full flex-col md:flex md:flex-row gap-10 px-5 
     items-center w-[60%]'>
-        <Select onValueChange={(value)=>setCars(value)}>
+        <Select onValueChange={(value)=>setCondition(value)}>
             <SelectTrigger className="outline-none border-none w-full shadow-none text-md">
                 <SelectValue placeholder="Ownership" />
             </SelectTrigger>
@@ -56,7 +56,7 @@ function Search() {
                 ))}
             </SelectContent>
         </Select>
-        <Link to={'/search?cars='+cars+'&make='+make+'&price='+price}>
+        <Link to={'/search?condition='+condition+'&make='+make+'&price='+price}>
             <CiSearch className='text-[42px] text-white bg-[#515fbb] rounded-full p-3 hover:scale-105 transition-all
             cursor-pointer'/>
         </Link>
