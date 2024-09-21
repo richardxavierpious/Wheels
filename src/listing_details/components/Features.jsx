@@ -5,7 +5,7 @@ function Features({features}) {
     console.log(features);
   return (
     
-        <div className="p-5 mt-5 rounded-xl bg-white shadow-md border border-slate-300">
+        <div className="p-5 mt-5 rounded-xl bg-white shadow-md border border-slate-200">
         <h2 className="font-medium mb-6 text-2xl">Features</h2>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
         {features ? (
