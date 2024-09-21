@@ -4,9 +4,12 @@ import { BsFuelPump } from "react-icons/bs";
 import { SlSpeedometer } from "react-icons/sl";
 import { GiGearStickPattern } from "react-icons/gi";
 import { IoMdOpen } from "react-icons/io";
+import { Link, useParams } from 'react-router-dom';
 
 function CarItem({car}) {
+
   return (
+    <Link to={'/listing_details/'+car?.id} className='text-black'>
     <div className='rounded-xl bg-white border hover:shadow-lg cursor-pointer'>
 
         <h2 className='absolute m-2 bg-green-500 px-2 rounded-full text-sm pb-0.5 text-white'>New</h2>
@@ -50,6 +53,7 @@ function CarItem({car}) {
         </div>
 
     </div>
+    </Link>
   )
 }
 
