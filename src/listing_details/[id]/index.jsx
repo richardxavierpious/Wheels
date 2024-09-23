@@ -22,7 +22,7 @@ function ListingDetail() {
 
     useEffect(()=>{
         GetCarDetails();
-    }, [])
+    }, [{id}])
 
     const GetCarDetails = async ()=>{
         const result = await db.select().from(CarListing)
